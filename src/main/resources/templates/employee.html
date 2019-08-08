@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta name="description" content="">
+        <div th:replace="fragments/header::header-css"></div>
+    </head>
+    <body id="page-top">
+        <!-- Page Wrapper -->
+        <div id="wrapper">
+            <div th:replace="fragments/header::sidebar"></div>    
+            <!-- Content Wrapper -->
+            <div id="content-wrapper" class="d-flex flex-column">
+                <!-- Main Content -->
+                <div id="content">
+                    <div th:replace="fragments/header::topnav"></div>
+                    <!-- Begin Page Content -->
+                    <div class="container-fluid">
+
+                        <!-- Page Heading -->
+                        <h1 class="h3 mb-4 text-gray-800">Employee Page</h1>
+
+                    </div>
+                    <!-- /.container-fluid -->  
+                </div>
+                <!-- End of Main Content -->
+                <div th:replace="fragments/header::footer"></div>
+            </div>
+            <!-- End of Content Wrapper -->
+        </div>
+        <!-- End of Page Wrapper -->
+        <div th:replace="fragments/footer::footer"></div>
+    </body>
+</html>
