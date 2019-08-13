@@ -100,13 +100,29 @@ public class Customer implements Serializable {
         this.id = id;
     }
 
-    public Customer(Integer id, String name, String pic, String phone, String email, String address) {
+    public Customer(String name, String pic, String phone, String email, String address, Province province, District district, Subdistrict subdistrict, Urbanvillage urbanvillage) {
+        this.name = name;
+        this.pic = pic;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.province = province;
+        this.district = district;
+        this.subdistrict = subdistrict;
+        this.urbanvillage = urbanvillage;
+    }
+
+    public Customer(Integer id, String name, String pic, String phone, String email, String address, Province province, District district, Subdistrict subdistrict, Urbanvillage urbanvillage) {
         this.id = id;
         this.name = name;
         this.pic = pic;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.province = province;
+        this.district = district;
+        this.subdistrict = subdistrict;
+        this.urbanvillage = urbanvillage;
     }
 
     public Integer getId() {

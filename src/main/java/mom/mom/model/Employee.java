@@ -95,13 +95,23 @@ public class Employee implements Serializable {
         this.id = id;
     }
 
-    public Employee(Integer id, String name, String lastname, String phone, String email, String password) {
+    public Employee(String name, String lastname, String phone, String email, String password, Role role) {
+        this.name = name;
+        this.lastname = lastname;
+        this.phone = phone;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
+
+    public Employee(Integer id, String name, String lastname, String phone, String email, String password, Role role) {
         this.id = id;
         this.name = name;
         this.lastname = lastname;
         this.phone = phone;
         this.email = email;
         this.password = password;
+        this.role = role;
     }
 
     public Integer getId() {

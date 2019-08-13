@@ -5,13 +5,19 @@
  */
 package mom.mom.controller;
 
+import com.google.gson.Gson;
+import mom.mom.interfaceserviceimplement.CustomerServiceImplement;
 import mom.mom.interfaceserviceimplement.DistrictServiceImplement;
+import mom.mom.interfaceserviceimplement.EmployeeServiceImplement;
+import mom.mom.interfaceserviceimplement.MeetingServiceImplement;
 import mom.mom.interfaceserviceimplement.ProvinceServiceImplement;
 import mom.mom.interfaceserviceimplement.RoleServiceImplement;
 import mom.mom.interfaceserviceimplement.StatusServiceImplement;
 import mom.mom.interfaceserviceimplement.SubdistrictServiceImplement;
 import mom.mom.interfaceserviceimplement.UrbanvillageServiceImplement;
+import mom.mom.model.Customer;
 import mom.mom.model.District;
+import mom.mom.model.Employee;
 import mom.mom.model.Province;
 import mom.mom.model.Role;
 import mom.mom.model.Status;
@@ -33,6 +39,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class MainController {
     
     @Autowired
+    public EmployeeServiceImplement esi;
+    
+    @Autowired
+    public CustomerServiceImplement csi;
+    
+    @Autowired
     public RoleServiceImplement rsi;
     
     @Autowired
@@ -50,20 +62,118 @@ public class MainController {
     @Autowired
     public UrbanvillageServiceImplement usi;
     
+    @Autowired
+    public MeetingServiceImplement msi;
+    
     @GetMapping("/")
     public String index(){
         return "index";
     }
     
+    //Start Controller Employee
     @GetMapping("/employee")
-    public String employee(){
+    public String employee(Model model){
+        model.addAttribute("employee", esi.findAll());
+        model.addAttribute("role", rsi.findAll());
         return "employee";
     }
     
+    @PostMapping("/employee/save")
+    public String saveEmployee(@RequestParam(value = "name") String name,
+            @RequestParam(value = "lastname") String lastName,
+            @RequestParam(value = "phone") String phone,
+            @RequestParam(value = "email") String email,
+            @RequestParam(value = "password") String password,
+            @RequestParam(value = "role")int role){
+        Employee employee = new Employee(name, lastName, phone, email, 
+                password, new Role(role));
+        esi.save(employee);
+        return "redirect:/employee";
+    }
+    
+    @PostMapping("/employee/edit")
+    public String editEmployee(@RequestParam(value = "id") int id,
+            @RequestParam(value = "name") String name,
+            @RequestParam(value = "lastname") String lastName,
+            @RequestParam(value = "phone") String phone,
+            @RequestParam(value = "email") String email,
+            @RequestParam(value = "password") String password,
+            @RequestParam(value = "role")int role){
+        Employee employee = new Employee(id, name, lastName, phone, email, 
+                password, new Role(role));
+        esi.save(employee);
+        return "redirect:/employee";
+    }
+    
+    @GetMapping("/employee/delete/{id}")
+    public String deleteEmployee(@PathVariable(value = "id") int id){
+        esi.delete(id);
+        return "redirect:/employee";
+    }
+    //End Controller Employee
+    
+    //Start Controller Customer
     @GetMapping("/customer")
-    public String customer(){
+    public String customer(Model model){
+        model.addAttribute("customer", csi.findAll());
+        model.addAttribute("province", psi.findAll());
+        model.addAttribute("district", dsi.findAll());
+        model.addAttribute("subdistrict", sdsi.findAll());
+        model.addAttribute("urbanvillage", usi.findAll());
         return "customer";
     }
+    
+    @GetMapping("/loadDistrict/{id}")
+    public String loadDistrict(@PathVariable(value = "id") int id){
+        Gson gson = new Gson();
+        return gson.toJson(csi.findById(id).get().getDistrict());
+    }
+    
+    @PostMapping("/customer/save")
+    public String saveCustomer(@RequestParam(value = "name")String name,
+            @RequestParam(value = "pic")String pic,
+            @RequestParam(value = "phone")String phone,
+            @RequestParam(value = "email")String email,
+            @RequestParam(value = "address")String address,
+            @RequestParam(value = "province")int province,
+            @RequestParam(value = "district")int district,
+            @RequestParam(value = "subdistrict")int subdistrict,
+            @RequestParam(value = "urbanvillage")int urbanvillage){
+        Customer customer = new Customer(name, pic, phone, email, address, 
+                new Province(province), 
+                new District(district), 
+                new Subdistrict(subdistrict), 
+                new Urbanvillage(urbanvillage));
+        csi.save(customer);
+        return "redirect:/customer";
+    }
+    
+    @PostMapping("/customer/edit")
+    public String editCustomer(@RequestParam(value = "id") int id,
+            @RequestParam(value = "name")String name,
+            @RequestParam(value = "pic")String pic,
+            @RequestParam(value = "phone")String phone,
+            @RequestParam(value = "email")String email,
+            @RequestParam(value = "address")String address,
+            @RequestParam(value = "province")int province,
+            @RequestParam(value = "district")int district,
+            @RequestParam(value = "subdistrict")int subdistrict,
+            @RequestParam(value = "urbanvillage")int urbanvillage){
+        Customer customer = new Customer(id, name, pic, phone, email, address, 
+                new Province(province), 
+                new District(district), 
+                new Subdistrict(subdistrict), 
+                new Urbanvillage(urbanvillage));
+        csi.save(customer);
+        return "redirect:/customer";
+    }
+    
+    @GetMapping("/customer/delete/{id}")
+    public String deleteCustomer(@PathVariable(value = "id") int id){
+        csi.delete(id);
+        return "redirect:/customer";
+    }
+    //End Controller Customer
     
     // Start Controller Role
     @GetMapping("/role")
