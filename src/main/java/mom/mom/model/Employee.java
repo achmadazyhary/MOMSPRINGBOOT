@@ -6,9 +6,7 @@
 package mom.mom.model;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -19,12 +17,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -40,7 +36,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Employee.findByLastname", query = "SELECT e FROM Employee e WHERE e.lastname = :lastname")
     , @NamedQuery(name = "Employee.findByPhone", query = "SELECT e FROM Employee e WHERE e.phone = :phone")
     , @NamedQuery(name = "Employee.findByEmail", query = "SELECT e FROM Employee e WHERE e.email = :email")
-    , @NamedQuery(name = "Employee.findByPassword", query = "SELECT e FROM Employee e WHERE e.password = :password")})
+    , @NamedQuery(name = "Employee.findByPassword", query = "SELECT e FROM Employee e WHERE e.password = :password")
+    , @NamedQuery(name = "Employee.findByIsactive", query = "SELECT e FROM Employee e WHERE e.isactive = :isactive")})
 public class Employee implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -76,17 +73,13 @@ public class Employee implements Serializable {
 //    @Size(min = 1, max = 255)
     @Column(name = "password")
     private String password;
+//    @Basic(optional = false)
+//    @NotNull
+    @Column(name = "isactive")
+    private boolean isactive;
     @JoinColumn(name = "role", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Role role;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "employee", fetch = FetchType.LAZY)
-    private List<Employeemeeting> employeemeetingList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pic", fetch = FetchType.LAZY)
-    private List<Followup> followupList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "pic", fetch = FetchType.LAZY)
-    private List<Meeting> meetingList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "manager", fetch = FetchType.LAZY)
-    private List<Meeting> meetingList1;
 
     public Employee() {
     }
@@ -95,22 +88,24 @@ public class Employee implements Serializable {
         this.id = id;
     }
 
-    public Employee(String name, String lastname, String phone, String email, String password, Role role) {
-        this.name = name;
-        this.lastname = lastname;
-        this.phone = phone;
-        this.email = email;
-        this.password = password;
-        this.role = role;
-    }
-
-    public Employee(Integer id, String name, String lastname, String phone, String email, String password, Role role) {
+    public Employee(Integer id, String name, String lastname, String phone, String email, String password, boolean isactive, Role role) {
         this.id = id;
         this.name = name;
         this.lastname = lastname;
         this.phone = phone;
         this.email = email;
         this.password = password;
+        this.isactive = isactive;
+        this.role = role;
+    }
+
+    public Employee(String name, String lastname, String phone, String email, String password, boolean isactive, Role role) {
+        this.name = name;
+        this.lastname = lastname;
+        this.phone = phone;
+        this.email = email;
+        this.password = password;
+        this.isactive = isactive;
         this.role = role;
     }
 
@@ -162,48 +157,20 @@ public class Employee implements Serializable {
         this.password = password;
     }
 
+    public boolean getIsactive() {
+        return isactive;
+    }
+
+    public void setIsactive(boolean isactive) {
+        this.isactive = isactive;
+    }
+
     public Role getRole() {
         return role;
     }
 
     public void setRole(Role role) {
         this.role = role;
-    }
-
-    @XmlTransient
-    public List<Employeemeeting> getEmployeemeetingList() {
-        return employeemeetingList;
-    }
-
-    public void setEmployeemeetingList(List<Employeemeeting> employeemeetingList) {
-        this.employeemeetingList = employeemeetingList;
-    }
-
-    @XmlTransient
-    public List<Followup> getFollowupList() {
-        return followupList;
-    }
-
-    public void setFollowupList(List<Followup> followupList) {
-        this.followupList = followupList;
-    }
-
-    @XmlTransient
-    public List<Meeting> getMeetingList() {
-        return meetingList;
-    }
-
-    public void setMeetingList(List<Meeting> meetingList) {
-        this.meetingList = meetingList;
-    }
-
-    @XmlTransient
-    public List<Meeting> getMeetingList1() {
-        return meetingList1;
-    }
-
-    public void setMeetingList1(List<Meeting> meetingList1) {
-        this.meetingList1 = meetingList1;
     }
 
     @Override

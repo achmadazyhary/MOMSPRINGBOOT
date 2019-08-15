@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+ <!DOCTYPE HTML>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
     <head>  
         <meta name="description" content="">
@@ -52,7 +52,7 @@
                                                 <td hidden="" id="id" th:text="${province.id}"></td>
                                                 <td id="name" th:text="${province.name}"></td>
                                                 <td>
-                                                    <a th:href="@{'/province/delete/' + ${province.id}}" class="btn btn-sm btn-outline-danger">
+                                                    <a th:href="@{'/admin/province/delete/' + ${province.id}}" class="btn btn-sm btn-outline-danger">
                                                         <span class="icon">
                                                             <i class="fas fa-trash"></i>
                                                         </span>
@@ -81,7 +81,7 @@
                                     </div>
                                     <!-- Modal Body -->
                                     <div class="modal-body">
-                                        <form th:action="@{/province/save}" method="POST" class="form-horizontal" role="form">
+                                        <form th:action="@{/admin/province/save}" method="POST" class="form-horizontal" role="form">
                                             <div class="form-group">
                                                 <label for="input" class="col-sm control-label">Province</label>
                                                 <div class="col-sm-12">
@@ -115,7 +115,7 @@
                                     </div>
                                     <!-- Modal Body -->
                                     <div class="modal-body">
-                                        <form th:action="@{/province/edit}" method="POST" class="form-horizontal" role="form">
+                                        <form th:action="@{/admin/province/edit}" method="POST" class="form-horizontal" role="form">
                                             <div class="form-group">
                                                 <label for="input" class="col-sm control-label">ID</label>
                                                 <div class="col-sm-12">

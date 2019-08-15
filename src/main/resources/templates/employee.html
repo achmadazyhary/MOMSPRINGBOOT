@@ -65,10 +65,11 @@
                                                 <td hidden="" id="phone" th:text="${employee.phone}"></td>
                                                 <td hidden="" id="email" th:text="${employee.email}"></td>
                                                 <td id="password" hidden="" th:text="${employee.password}"></td>
+                                                <td hidden="" id="isactive" th:text="${employee.isactive}"></td>
                                                 <td hidden="" id="role" th:text="${employee.role.name}"></td>
                                                 <td id="roleId" hidden="" th:text="${employee.role.id}"></td>
                                                 <td>
-                                                    <a th:href="@{'/employee/delete/' + ${employee.id}}" class="btn btn-sm btn-outline-danger">
+                                                    <a th:href="@{'/admin/employee/delete/' + ${employee.id}}" class="btn btn-sm btn-outline-danger">
                                                         <span class="icon">
                                                             <i class="fas fa-trash"></i>
                                                         </span>
@@ -101,7 +102,7 @@
                                         </div>
                                         <!-- Modal Body -->
                                         <div class="modal-body">
-                                            <form th:action="@{/employee/save}" method="POST" class="form-horizontal" role="form">
+                                            <form th:action="@{/admin/employee/save}" method="POST" class="form-horizontal" role="form">
                                                 <div class="form-group">
                                                     <label for="input" class="col-sm control-label">First Name</label>
                                                     <div class="col-sm-12">
@@ -130,6 +131,16 @@
                                                     <label for="input" class="col-sm control-label">Password</label>
                                                     <div class="col-sm-12">
                                                         <input type="password" name="password" class="form-control" value="" required="required">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="input" class="col-sm control-label">Active</label>
+                                                    <div class="col-sm-12">
+                                                        <select name="isactive" class="form-control" required="">
+                                                            <option>None</option>
+                                                            <option th:value="true">Yes</option>
+                                                            <option th:value="false">No</option>
+                                                        </select>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
@@ -163,12 +174,12 @@
                                     <div class="modal-content">
                                         <!-- Modal Header -->
                                         <div class="modal-header">
-                                            <h4 class="modal-title">Form Urban-Village</h4>
+                                            <h4 class="modal-title">Edit Employee</h4>
                                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                                         </div>
                                         <!-- Modal Body -->
                                         <div class="modal-body">
-                                            <form th:action="@{/employee/edit}" method="POST" class="form-horizontal" role="form">
+                                            <form th:action="@{/admin/employee/edit}" method="POST" class="form-horizontal" role="form">
                                                 <div class="form-group">
                                                     <label for="input" class="col-sm control-label">ID</label>
                                                     <div class="col-sm-12">
@@ -203,6 +214,16 @@
                                                     <label for="input" class="col-sm control-label">Password</label>
                                                     <div class="col-sm-12">
                                                         <input type="password" id="modalPassword" name="password" class="form-control" value="" required="required">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="input" class="col-sm control-label">Active</label>
+                                                    <div class="col-sm-12">
+                                                        <select name="isactive" class="form-control" id="modalActive" required="">
+                                                            <option>None</option>
+                                                            <option th:value="true">Yes</option>
+                                                            <option th:value="false">No</option>
+                                                        </select>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
@@ -291,15 +312,17 @@
                 var _phone = _row.find("#phone").text();
                 var _email = _row.find("#email").text();
                 var _password = _row.find("#password").text();
+                var _isactive = _row.find("#isactive").text();
                 var _role = _row.find("#role").text();
                 var _roleId = _row.find("#roleId").text();
-//                    alert(_name);
+//                    alert(_isactive);
                 $(this).find('#modalId').val(_id);
                 $(this).find('#modalName').val(_name);
                 $(this).find('#modalLastName').val(_lastname);
                 $(this).find('#modalPhone').val(_phone);
                 $(this).find('#modalEmail').val(_email);
                 $(this).find('#modalPassword').val(_password);
+                $(this).find('#modalActive').val(_isactive);
                 $(this).find('#modalRole').val(_role);
                 $(this).find('#modalRole').val(_roleId);
             });
@@ -317,7 +340,7 @@
                 var _password = _row.find("#password").text();
                 var _role = _row.find("#role").text();
                 var _roleId = _row.find("#roleId").text();
-                    alert(_name);
+//                    alert(_name);
                 $(this).find('#idDetail').text(_id);
                 $(this).find('#nameDetail').text(_name);
 //                $(this).find('#modalLastName').val(_lastname);

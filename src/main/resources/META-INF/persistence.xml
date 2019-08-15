@@ -7,7 +7,6 @@
     <class>mom.mom.model.Role</class>
     <class>mom.mom.model.Mom</class>
     <class>mom.mom.model.Followup</class>
-    <class>mom.mom.model.Employee</class>
     <class>mom.mom.model.Customermeeting</class>
     <class>mom.mom.model.District</class>
     <class>mom.mom.model.Customer</class>
@@ -15,6 +14,7 @@
     <class>mom.mom.model.Subdistrict</class>
     <class>mom.mom.model.Status</class>
     <class>mom.mom.model.Province</class>
+    <class>mom.mom.model.Employee</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/mom?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
